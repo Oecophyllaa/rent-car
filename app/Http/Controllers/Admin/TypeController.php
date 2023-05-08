@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Brand;
+use App\Models\Type;
 use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
-use App\Http\Requests\BrandRequest;
+use App\Http\Requests\TypeRequest;
 use App\Http\Controllers\Controller;
 
-class BrandController extends Controller
+class TypeController extends Controller
 {
 	/**
 	 * Display a listing of the resource.
@@ -19,16 +19,16 @@ class BrandController extends Controller
 	{
 		// Script untuk Datatables, AJAX
 		if (request()->ajax()) {
-			$query = Brand::query();
+			$query = Type::query();
 
 			return DataTables::of($query)
-				->addColumn('action', function ($brand) {
+				->addColumn('action', function ($type) {
 					return '
 						<a class="block w-full px-2 py-1 mb-1 text-xs text-center text-white transition duration-500 bg-gray-700 border border-gray-700 rounded-md select-none ease hover:bg-gray-800 focus:outline-none focus:shadow-outline" 
-								href="' . route('admin.brands.edit', $brand->id) . '">
+								href="' . route('admin.types.edit', $type->id) . '">
 								Sunting
 						</a>
-						<form class="block w-full" onsubmit="return confirm(\'Apakah anda yakin?\');" -block" action="' . route('admin.brands.destroy', $brand->id) . '" method="POST">
+						<form class="block w-full" onsubmit="return confirm(\'Apakah anda yakin?\');" -block" action="' . route('admin.types.destroy', $type->id) . '" method="POST">
 						<button class="w-full px-2 py-1 text-xs text-white transition duration-500 bg-red-500 border border-red-500 rounded-md select-none ease hover:bg-red-600 focus:outline-none focus:shadow-outline" >
 								Hapus
 						</button>
@@ -39,8 +39,8 @@ class BrandController extends Controller
 				->make();
 		}
 
-		// Script untuk return halaman view brand
-		return view('admin.brands.index');
+		// Script untuk return halaman view type
+		return view('admin.types.index');
 	}
 
 	/**
@@ -50,7 +50,7 @@ class BrandController extends Controller
 	 */
 	public function create()
 	{
-		return view('admin.brands.create');
+		return view('admin.types.create');
 	}
 
 	/**
@@ -59,14 +59,14 @@ class BrandController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(BrandRequest $request)
+	public function store(TypeRequest $request)
 	{
 		$data = $request->all();
 		$data['slug'] = Str::slug($data['name']) . '-' . Str::lower(Str::random(5));
 
-		Brand::create($data);
+		Type::create($data);
 
-		return redirect()->route('admin.brands.index')->with('success', 'Brand berhasil ditambahkan');
+		return redirect()->route('admin.types.index')->with('success', 'Type berhasil ditambahkan');
 	}
 
 	/**
@@ -86,10 +86,10 @@ class BrandController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(Brand $brand)
+	public function edit(Type $type)
 	{
-		return view('admin.brands.edit', [
-			'brand' => $brand,
+		return view('admin.types.edit', [
+			'type' => $type,
 		]);
 	}
 
@@ -100,14 +100,14 @@ class BrandController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(BrandRequest $request, Brand $brand)
+	public function update(TypeRequest $request, Type $type)
 	{
 		$data = $request->all();
 		$data['slug'] = Str::slug($data['name']) . '-' . Str::lower(Str::random(5));
 
-		$brand->update($data);
+		$type->update($data);
 
-		return redirect()->route('admin.brands.index');
+		return redirect()->route('admin.types.index');
 	}
 
 	/**
@@ -116,10 +116,10 @@ class BrandController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Brand $brand)
+	public function destroy(Type $type)
 	{
-		$brand->delete();
+		$type->delete();
 
-		return redirect()->route('admin.brands.index');
+		return redirect()->route('admin.types.index');
 	}
 }
