@@ -33,5 +33,3 @@ Route::prefix('admin')->name('admin.')->middleware([
 	Route::resource('types', AdminTypeController::class);
 	Route::resource('items', AdminItemController::class);
 });
-
-// 55:20
