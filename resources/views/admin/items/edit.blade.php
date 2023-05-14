@@ -5,7 +5,7 @@
       <a href="#!" onclick="window.history.go(-1); return false;">
         ←
       </a>
-      {!! __('Item &raquo; Buat') !!}
+      {!! __('Item &raquo; Sunting &raquo; ' . $item->name) !!}
     </h2>
   </x-slot>
 
@@ -29,14 +29,15 @@
           </div>
         @endif
 
-        <form class="w-full" action="{{ route('admin.items.store') }}" method="post" enctype="multipart/form-data">
+        <form class="w-full" action="{{ route('admin.items.update', $item->id) }}" method="POST" enctype="multipart/form-data">
           @csrf
+          @method('PUT')
           <div class="-mx-3 mt-4 mb-6 flex flex-wrap px-3">
             <div class="w-full">
               <label class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700" for="grid-last-name">
                 Nama*
               </label>
-              <input value="{{ old('name') }}" name="name"
+              <input value="{{ old('name') ?? $item->name }}" name="name"
                 class="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 type="text" placeholder="Nama" required />
               <div class="mt-2 text-sm text-gray-500">
@@ -53,7 +54,8 @@
               <select name="brand_id"
                 class="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 required>
-                <option value="">Pilih Brand</option>
+                <option value="{{ $item->brand->id }}">Tidak Diubah ({{ $item->brand->name }})</option>
+                <option disabled>&mdash; &mdash; &mdash; &mdash; &mdash; &mdash; &mdash; &mdash; &mdash;</option>
                 @foreach ($brands as $brand)
                   <option value="{{ $brand->id }}" {{ old('brand_id') == $brand->id ? 'selected' : '' }}>
                     {{ $brand->name }}
@@ -74,7 +76,8 @@
               <select name="type_id"
                 class="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 required>
-                <option value="">Pilih Type</option>
+                <option value="{{ $item->type->id }}">Tidak Diubah ({{ $item->type->name }})</option>
+                <option disabled>&mdash; &mdash; &mdash; &mdash; &mdash; &mdash; &mdash; &mdash; &mdash;</option>
                 @foreach ($types as $type)
                   <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>
                     {{ $type->name }}
@@ -92,7 +95,7 @@
               <label class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700" for="grid-last-name">
                 Fitur
               </label>
-              <input value="{{ old('features') }}" name="features"
+              <input value="{{ old('features') ?? $item->features }}" name="features"
                 class="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 type="text" placeholder="Fitur" />
               <div class="mt-2 text-sm text-gray-500">
@@ -120,7 +123,7 @@
               <label class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700" for="grid-last-name">
                 Harga
               </label>
-              <input value="{{ old('price') }}" name="price"
+              <input value="{{ old('price') ?? $item->price }}" name="price"
                 class="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 type="number" placeholder="Harga" />
               <div class="mt-2 text-sm text-gray-500">
@@ -132,7 +135,7 @@
               <label class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700" for="grid-last-name">
                 Rating
               </label>
-              <input value="{{ old('star') }}" name="star"
+              <input value="{{ old('star') ?? $item->star }}" name="star"
                 class="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 type="number" placeholder="Rating" min="1" max="5" step=".01" />
               <div class="mt-2 text-sm text-gray-500">
@@ -144,7 +147,7 @@
               <label class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700" for="grid-last-name">
                 Review
               </label>
-              <input value="{{ old('review') }}" name="review"
+              <input value="{{ old('review') ?? $item->review }}" name="review"
                 class="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
                 type="number" placeholder="Review" />
               <div class="mt-2 text-sm text-gray-500">
@@ -155,8 +158,7 @@
 
           <div class="-mx-3 mb-6 flex flex-wrap">
             <div class="w-full px-3 text-right">
-              <button type="submit"
-                class="rounded bg-green-500 px-4 py-2 font-bold text-white shadow-lg hover:bg-green-700">
+              <button type="submit" class="rounded bg-green-500 px-4 py-2 font-bold text-white shadow-lg hover:bg-green-700">
                 Simpan Item
               </button>
             </div>

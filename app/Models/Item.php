@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Item extends Model
 {
@@ -25,6 +26,16 @@ class Item extends Model
 	protected $casts = [
 		'photos' => 'array'
 	];
+
+	// Get first photo from photos
+	public function getThumbnailAttribute()
+	{
+		if ($this->photos) {
+			return Storage::url(json_decode($this->photos)[0]);
+		}
+
+		return 'https://via.placeholder.com/800x600';
+	}
 
 	public function brand()
 	{
