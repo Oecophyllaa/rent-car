@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\BookingRequest;
+use App\Http\Requests\BookingUpdateRequest;
 
 class BookingController extends Controller
 {
@@ -37,7 +39,7 @@ class BookingController extends Controller
 				->make();
 		}
 
-		return view('admin.items.index');
+		return view('admin.bookings.index');
 	}
 
 	/**
@@ -78,9 +80,9 @@ class BookingController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit($id)
+	public function edit(Booking $booking)
 	{
-		//
+		return view('admin.bookings.edit', compact('booking'));
 	}
 
 	/**
@@ -90,9 +92,13 @@ class BookingController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, $id)
+	public function update(BookingUpdateRequest $request, Booking $booking)
 	{
-		//
+		$data = $request->all();
+
+		$booking->update($data);
+
+		return redirect()->route('admin.bookings.index');
 	}
 
 	/**
@@ -101,8 +107,10 @@ class BookingController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy($id)
+	public function destroy(Booking $booking)
 	{
-		//
+		$booking->delete();
+
+		return redirect()->route('admin.bookings.index');
 	}
 }

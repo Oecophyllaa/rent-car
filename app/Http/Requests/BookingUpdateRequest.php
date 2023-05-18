@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class BookingRequest extends FormRequest
+class BookingUpdateRequest extends FormRequest
 {
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -26,18 +26,11 @@ class BookingRequest extends FormRequest
 	{
 		return [
 			'name' => 'nullable|string|max:255',
-			'start_date' => 'nullable|date',
-			'end_date' => 'nullable|date',
 			'address' => 'nullable|string',
 			'city' => 'nullable|string|max:255',
 			'zip' => 'nullable|string|max:255',
 			'status' => 'required|string|max:255',
-			'payment_method' => 'required|string|max:255',
 			'payment_status' => 'required|string|max:255',
-			'payment_url' => 'nullable|string|max:255',
-			'total_price' => 'required|integer',
-			'items_id' => 'required|integer|exists:items,id',
-			'user_id' => 'required|integer|exists:users,id',
 		];
 	}
 }
