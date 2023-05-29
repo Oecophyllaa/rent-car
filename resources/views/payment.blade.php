@@ -15,6 +15,10 @@
           class="w-full max-w-[490px] rounded-3xl bg-white p-[30px] pb-10">
           @csrf
           @method('POST')
+          <!-- Validation Errors -->
+          <div class="col-span-2 flex flex-col gap-3">
+            <x-jet-validation-errors class="mb-5" />
+          </div>
           <div class="flex flex-col gap-[30px]">
             <div class="flex flex-col gap-4">
               <h5 class="text-lg font-semibold">

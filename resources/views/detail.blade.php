@@ -1,3 +1,4 @@
+{{-- {{ dd($item->photos) }} --}}
 <x-front-layout>
   <!-- Main Content -->
   <section class="relative bg-darkGrey py-[70px]">
@@ -209,27 +210,27 @@
 
       <!-- Cars -->
       <div class="grid gap-[29px] md:grid-cols-2 lg:grid-cols-4">
-        @foreach ($similiarItems as $item)
+        @foreach ($similiarItems as $items)
           <!-- Card -->
           <div class="card-popular">
             <div>
               <h5 class="mb-[2px] text-lg font-bold text-dark">
-                {{ $item->name }}
+                {{ $items->name }}
               </h5>
               <p class="text-sm font-normal text-secondary">
-                {{ $item->type ? $item->type->name : '-' }}
+                {{ $items->type ? $items->type->name : '-' }}
               </p>
-              <a href="{{ route('front.detail', $item->slug) }}" class="absolute inset-0"></a>
+              <a href="{{ route('front.detail', $items->slug) }}" class="absolute inset-0"></a>
             </div>
-            <img src="{{ $item->thumbnail }}" class="h-[150px] w-full min-w-[216px] rounded-[18px]" alt="">
+            <img src="{{ $items->thumbnail }}" class="h-[150px] w-full min-w-[216px] rounded-[18px]" alt="">
             <div class="flex items-center justify-between gap-1">
               <!-- Price -->
               <p class="text-sm font-normal text-secondary">
-                <span class="text-base font-bold text-primary">IDR {{ number_format($item->price) }}</span>/day
+                <span class="text-base font-bold text-primary">IDR {{ number_format($items->price) }}</span>/day
               </p>
               <!-- Rating -->
               <p class="flex items-center gap-[2px] text-xs font-semibold text-dark">
-                ({{ $item->star }}/5)
+                ({{ $items->star }}/5)
                 <img src="./svgs/ic-star.svg" alt="">
               </p>
             </div>

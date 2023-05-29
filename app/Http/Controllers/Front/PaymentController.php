@@ -20,6 +20,11 @@ class PaymentController extends Controller
 
 	public function update(Request $request, $bookingId)
 	{
+		// Validate
+		$request->validate([
+			'payment_method' => 'required',
+		]);
+
 		// Load booking data
 		$booking = Booking::findOrFail($bookingId);
 
@@ -69,6 +74,8 @@ class PaymentController extends Controller
 			// Redirect to payment url
 			return redirect($paymentUrl);
 		}
+
+		return redirect()->route('front.index');
 	}
 
 	public function success(Request $request)
