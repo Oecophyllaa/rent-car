@@ -3,13 +3,13 @@
 Clone the project
 
 ```bash
-  git clone https://github.com/Oecophyllaa/cms-kitsvne.git
+  git clone https://github.com/Oecophyllaa/rent-car.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd cms-kitsvne
+  cd rent-car
 ```
 
 Install dependencies
@@ -17,7 +17,7 @@ Install dependencies
 ```bash
   composer install
   npm install
-  npm run dev
+  npm run build
 ```
 
 Setup environment
