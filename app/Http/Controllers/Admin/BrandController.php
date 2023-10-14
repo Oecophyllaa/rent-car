@@ -33,7 +33,8 @@ class BrandController extends Controller
 								Hapus
 						</button>
 								' . method_field('delete') . csrf_field() . '
-						</form>';
+						</form>
+					';
 				})
 				->rawColumns(['action'])
 				->make();

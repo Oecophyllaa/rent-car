@@ -61,7 +61,7 @@
                 @endforeach
               </select>
               <div class="mt-2 text-sm text-gray-500">
-                Brand item. Contoh: Subaru, Toyota, dsb. Wajib diisi.
+                Brand item. Contoh: Subaru, Branding, dsb. Wajib diisi.
               </div>
             </div>
           </div>
@@ -155,8 +155,7 @@
 
           <div class="-mx-3 mb-6 flex flex-wrap">
             <div class="w-full px-3 text-right">
-              <button type="submit"
-                class="rounded bg-green-500 px-4 py-2 font-bold text-white shadow-lg hover:bg-green-700">
+              <button type="submit" class="rounded bg-green-500 px-4 py-2 font-bold text-white shadow-lg hover:bg-green-700">
                 Simpan Item
               </button>
             </div>
